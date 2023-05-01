@@ -10,14 +10,41 @@ const jobTypes = {
 };
 
 // Your code will go here
+class CrewMember {
+  constructor(_name, _job, _specialSkill)
+  {
+    this.name = _name;
+    this.job = _job;
+    this.specialSkill = _specialSkill;
+    this.ship = null
+  }
 
+  enterShip(_ship) {
+    this.ship = _ship;
+    _ship.crew.push(this);
+  } 
+}
 
+class Ship {
+  constructor(_name, _type, _ability)
+  {
+    this.name = _name;
+    this.type = _type;
+    this.ability = _ability;
+    this.crew = [];
+  }
 
+  missionStatement() {
+    if (this.crew.length === 0 ) {
+      return "Can't perform a mission yet."
+    }
+    else {
+      return this.ability;
+    }
+  }
+} 
 
-
-
-
-// Begin by reading the tests and building a function that will full each one.
+// Begin by reading the tests and building a function that will fulfill each one.
 // As you build, you might not have to build them in order, maybe you do...
 // These are the tests
 if (typeof describe === 'function'){
@@ -55,8 +82,10 @@ if (typeof describe === 'function'){
     it('can return a mission statement correctly', function(){
       let mav = new Ship('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
       const crewMember1 = new CrewMember('Rick Martinez', 'pilot', 'chemistry');
+      
       let hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
       const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
+
       assert.equal(mav.missionStatement(), "Can't perform a mission yet.");
       assert.equal(hermes.missionStatement(), "Can't perform a mission yet.");
 
